@@ -24,7 +24,7 @@ public class WalletService {
     @Value("${user.onboarding.amount}")
     private  int onBoardingAmount;
     // Acting as Consumer wrt to User Service
-    @KafkaListener(topics = USER_CREATE_TOPIC,groupId = "jbdl61")
+    @KafkaListener(topics = USER_CREATE_TOPIC, groupId = "jdbl61_grp")
     public void createWallet(String message) throws Exception {
         JSONObject jsonObject= (JSONObject) new JSONParser().parse(message);
         if(!jsonObject.containsKey("userId")){
@@ -38,7 +38,7 @@ public class WalletService {
     // Wallet as consumer wil consume the data from tracsaction like sender id ,recerver ,amount, transaction id
     // Now with that data the wallet will get updated
     //Wallet as Producer produces the data whether the transaction was successfull or not
-    @KafkaListener(topics = TXN_TOPIC)
+    @KafkaListener(topics = TXN_TOPIC,groupId = "jbdl27_grp")
     public void updateWallet(String message) throws Exception {
         JSONObject jsonObject = (JSONObject) new JSONParser().parse(message);
          if(!jsonObject.containsKey("senderId")|| !jsonObject.containsKey("receiverId")|| !jsonObject.containsKey("amount")|| !jsonObject.containsKey("txnId"))

@@ -36,7 +36,7 @@ public class TransactionService {
         kafkaTemplate.send(TXN_TOPIC,jsonObject.toJSONString());
         return new ResponseEntity<>(transaction.getTxnId(), HttpStatusCode.valueOf(201));
     }
-    @KafkaListener(topics = WALLET_UPDATE_TOPIC)
+    @KafkaListener(topics = WALLET_UPDATE_TOPIC,groupId = "jbdl61_grp")
     public void updateTxn(String message) throws ParseException {
 JSONObject jsonObject= (JSONObject) new JSONParser().parse(message);
 String txnId=(String)jsonObject.get("txnId");
