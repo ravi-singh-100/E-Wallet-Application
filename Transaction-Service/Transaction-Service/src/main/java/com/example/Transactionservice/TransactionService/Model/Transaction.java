@@ -1,9 +1,7 @@
-package com.example.Walletservice.WalletService.Model;
+package com.example.Transactionservice.TransactionService.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.Transactionservice.TransactionService.Enum.StatusEnum;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,12 +16,17 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Wallet {
-    @Id
+public class Transaction {
+   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int userId;
-    private double balance;
+    private String txnId;
+    private int senderId;
+    private int receiverId;
+    private double amount;
+    private String purpose;
+    @Enumerated(value = EnumType.STRING)
+    private StatusEnum status;
     @CreationTimestamp
     private Date createdOn;
     @UpdateTimestamp

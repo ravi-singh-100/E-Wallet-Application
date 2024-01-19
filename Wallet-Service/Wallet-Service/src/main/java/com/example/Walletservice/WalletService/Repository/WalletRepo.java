@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface WalletRepo extends JpaRepository<Wallet,Integer> {
     Wallet findByUserId(Integer userId);
     @Query("update Wallet w set w.balance = :balance where w.userId = :userId")
-   void updateBalance(Integer userId,Integer balance);
+   void updateBalance(Integer userId,Double balance);
 }

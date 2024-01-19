@@ -28,9 +28,10 @@ public class UserProducerConfiguration {
     public KafkaTemplate<String,String> kafkaTemplate(){
         return new KafkaTemplate<>(producerFactory());
     }
+
     // just strinf to java object
-    @Bean
-    ObjectMapper objectMapper(){
-       return new ObjectMapper();
-    }
+//    @Bean
+//    ObjectMapper objectMapper(){
+//       return new ObjectMapper();
+//    }
 }

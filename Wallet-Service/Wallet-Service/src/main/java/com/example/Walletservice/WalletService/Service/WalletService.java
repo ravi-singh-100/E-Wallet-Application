@@ -5,6 +5,7 @@ import com.example.Walletservice.WalletService.Repository.WalletRepo;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,8 @@ public class WalletService {
     private final static String USER_CREATE_TOPIC="user-create-topic";
     private final static String TXN_TOPIC="txn-topic";
     private final static String WALLET_UPDATE_TOPIC="wallet-update-topic";
-    private final static  int onBoardingAmount=50;
+    @Value("${user.onboarding.amount}")
+    private  int onBoardingAmount;
     // Acting as Consumer wrt to User Service
     @KafkaListener(topics = USER_CREATE_TOPIC,groupId = "jbdl61")
     public void createWallet(String message) throws Exception {
@@ -44,9 +46,9 @@ public class WalletService {
              throw new Exception("Some of the details are not present in txn event");
          }
 JSONObject walletUpdateEvent=new JSONObject();
-       Integer senderId=(Integer) jsonObject.get("senderId");
-         Integer receiverId=(Integer) jsonObject.get("receiverId");
-         Integer amount=(Integer) jsonObject.get("amount");
+       Integer senderId=((Long) jsonObject.get("senderId")).intValue();
+         Integer receiverId=((Long) jsonObject.get("receiverId")).intValue();
+         Double amount=(Double) jsonObject.get("amount");
          Integer txnId=(Integer) jsonObject.get("txnId");
         Wallet wallet=walletRepo.findByUserId(senderId);
         walletUpdateEvent.put("txnId",txnId);
