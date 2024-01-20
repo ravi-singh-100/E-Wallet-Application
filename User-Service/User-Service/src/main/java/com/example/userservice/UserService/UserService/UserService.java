@@ -19,15 +19,16 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
     public User createUser(User user) throws JsonProcessingException {
+       user=userRepo.save(user);
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("userId",user.getId());
         jsonObject.put("userEmail",user.getEmail());
         jsonObject.put("userPhoneNumber",user.getPhoneNumber());
         kafkaTemplate.send(USER_CREATE_TOPIC,jsonObject.toJSONString());
-        return userRepo.save(user);
+        return user;
     }
 
     public User getUserById(int id) {
-        return userRepo.findById(id).get();
+        return userRepo.findById(id).orElse(null);
     }
 }

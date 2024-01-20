@@ -18,7 +18,7 @@ public class TransactionController {
     TransactionService transactionService;
 
     @PostMapping("/transaction")
-    public ResponseEntity<String> createTxn(@Valid @RequestBody TransactionWrapper transactionWrapper) throws JsonProcessingException {
+    public ResponseEntity<String> createTxn(@Valid @RequestBody TransactionWrapper transactionWrapper)  {
        return transactionService.createTxn(transactionWrapper.to());
 
     }

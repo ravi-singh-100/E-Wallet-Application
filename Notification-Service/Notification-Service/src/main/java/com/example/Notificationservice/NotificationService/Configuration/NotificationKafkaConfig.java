@@ -30,8 +30,8 @@ public class NotificationKafkaConfig {
         JavaMailSenderImpl javaMailSender=new JavaMailSenderImpl();
         javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setPort(587); // smtp port
-        javaMailSender.setUsername("");
-        javaMailSender.setPassword("");
+        javaMailSender.setUsername("ravibajethapractice@gmail.com");
+        javaMailSender.setPassword("zvnw etqa tskp eqyn");
         Properties properties=javaMailSender.getJavaMailProperties();
         properties.put("mail.smtp.starttls.enable",true);
         properties.put("debug.enable",true);

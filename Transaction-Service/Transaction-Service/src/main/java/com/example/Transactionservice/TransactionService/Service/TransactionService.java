@@ -26,7 +26,7 @@ public class TransactionService {
     KafkaTemplate<String,String>kafkaTemplate;
     @Autowired
     RestTemplate restTemplate;
-    public ResponseEntity<String> createTxn(Transaction transaction)  throws JsonProcessingException {
+    public ResponseEntity<String> createTxn(Transaction transaction)   {
         transaction.setStatus(StatusEnum.PENDING);
         transactionRepo.save(transaction);
         JSONObject jsonObject=new JSONObject();

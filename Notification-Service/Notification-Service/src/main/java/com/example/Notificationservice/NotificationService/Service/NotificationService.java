@@ -16,8 +16,8 @@ public class NotificationService {
     SimpleMailMessage simpleMailMessage;
     @Autowired
     JavaMailSender javaMailSender;
-    private final static String WALLET_UPDATE_TOPIC="wallet-update-topic";
-    @KafkaListener(topics = WALLET_UPDATE_TOPIC,groupId = "jdbl61_grp")
+    private final static String TXN_COMPLETE_TOPIC="txn-complete";
+    @KafkaListener(topics = {TXN_COMPLETE_TOPIC},groupId = "jdbl61_grp")
     public void notify(String message) throws ParseException {
         JSONObject jsonObject= (JSONObject) new JSONParser().parse(message);
         String txnId=(String) jsonObject.get("txnId");
@@ -27,12 +27,13 @@ public class NotificationService {
         String status=(String) jsonObject.get("status");
 
         simpleMailMessage.setText("Hi you transaction with id "+txnId +" is "+status);
-        simpleMailMessage.setSubject("Transaction Notification");
         simpleMailMessage.setTo(senderEmail);
+        simpleMailMessage.setSubject("Transaction Notification");
+
         simpleMailMessage.setFrom("ravibajethapractice@gmail.com");
         javaMailSender.send(simpleMailMessage);
         if(status.equals("SUCCESS")){
-            simpleMailMessage.setText("Credited Amount : "+amount +" from "+senderEmail);
+            simpleMailMessage.setText("Credit Amount : "+amount +" from "+senderEmail);
             simpleMailMessage.setTo(receiverEmail);
             javaMailSender.send(simpleMailMessage);
         }
