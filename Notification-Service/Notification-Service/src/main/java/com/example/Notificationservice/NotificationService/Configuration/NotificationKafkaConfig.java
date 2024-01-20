@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -31,7 +30,7 @@ public class NotificationKafkaConfig {
         JavaMailSenderImpl javaMailSender=new JavaMailSenderImpl();
         javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setPort(587); // smtp port
-        javaMailSender.setUsername("ravibajethapractice@gmail.com");
+        javaMailSender.setUsername("");
         javaMailSender.setPassword("");
         Properties properties=javaMailSender.getJavaMailProperties();
         properties.put("mail.smtp.starttls.enable",true);

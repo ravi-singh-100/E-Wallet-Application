@@ -22,7 +22,7 @@ public class WalletService {
     private final static String TXN_TOPIC="txn-topic";
     private final static String WALLET_UPDATE_TOPIC="wallet-update-topic";
     @Value("${user.onboarding.amount}")
-    private  int onBoardingAmount;
+    private  double onBoardingAmount;
     // Acting as Consumer wrt to User Service
     @KafkaListener(topics = USER_CREATE_TOPIC, groupId = "jdbl61_grp")
     public void createWallet(String message) throws Exception {

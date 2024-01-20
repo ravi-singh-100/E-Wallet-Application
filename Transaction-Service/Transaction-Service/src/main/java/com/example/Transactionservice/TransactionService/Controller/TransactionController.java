@@ -2,6 +2,7 @@ package com.example.Transactionservice.TransactionService.Controller;
 
 import com.example.Transactionservice.TransactionService.Service.TransactionService;
 import com.example.Transactionservice.TransactionService.Wrapper.TransactionWrapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
@@ -17,7 +18,7 @@ public class TransactionController {
     TransactionService transactionService;
 
     @PostMapping("/transaction")
-    public ResponseEntity<String> createTxn(@Valid @RequestBody TransactionWrapper transactionWrapper){
+    public ResponseEntity<String> createTxn(@Valid @RequestBody TransactionWrapper transactionWrapper) throws JsonProcessingException {
        return transactionService.createTxn(transactionWrapper.to());
 
     }

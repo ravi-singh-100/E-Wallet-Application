@@ -3,6 +3,7 @@ package com.example.Transactionservice.TransactionService.Service;
 import com.example.Transactionservice.TransactionService.Enum.StatusEnum;
 import com.example.Transactionservice.TransactionService.Model.Transaction;
 import com.example.Transactionservice.TransactionService.Repository.TransactionRepo;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -25,7 +26,7 @@ public class TransactionService {
     KafkaTemplate<String,String>kafkaTemplate;
     @Autowired
     RestTemplate restTemplate;
-    public ResponseEntity<String> createTxn(Transaction transaction) {
+    public ResponseEntity<String> createTxn(Transaction transaction)  throws JsonProcessingException {
         transaction.setStatus(StatusEnum.PENDING);
         transactionRepo.save(transaction);
         JSONObject jsonObject=new JSONObject();
@@ -47,7 +48,7 @@ if(status.equals("FAILED")){
 }else{
     statusEnum=StatusEnum.SUCCESS;
 }
-Transaction transaction=transactionRepo.findByIdTxnId(txnId);
+Transaction transaction=transactionRepo.findByTxnId(txnId);
 transaction.setStatus(statusEnum);
 transactionRepo.save(transaction);
 Integer senderId=transaction.getSenderId();

@@ -3,11 +3,13 @@ package com.example.userservice.UserService.UserService;
 import com.example.userservice.UserService.Model.User;
 import com.example.userservice.UserService.Repo.UserRepo;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Service
 public class UserService {
@@ -16,7 +18,7 @@ public class UserService {
     private KafkaTemplate<String, String> kafkaTemplate;
     @Autowired
     private UserRepo userRepo;
-    public User createUser(User user) {
+    public User createUser(User user) throws JsonProcessingException {
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("userId",user.getId());
         jsonObject.put("userEmail",user.getEmail());
